@@ -36,13 +36,22 @@ class MainActivity : ComponentActivity() {
                 // Holds the typed text while this screen is open. A redraw keeps it. Rotation still runs onCreate again.
                // var name by remember { mutableStateOf("") }
                // var studentNum by remember {mutableStateOf("")}
+                var showEmpty by remember { mutableStateOf(false) }
+                val events = if (showEmpty) emptyList() else sampleEvents
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .verticalScroll(rememberScrollState())
-                    ) {
-                        ProfileForm(modifier = Modifier.padding(24.dp))
+                    Column(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
+                        EventList(
+                            events = events,
+                            onEventClick = { id ->
+                                val intent = Intent(activity, EventDetailActivity::class.java)
+                                intent.putExtra("id", id)
+                                activity.startActivity(intent)
+                            },
+                            modifier = Modifier.weight(1f),
+                        )
+                        Button(onClick = { showEmpty = !showEmpty }) {
+                            Text(if (showEmpty) "Show events" else "Show empty")
+                        }
                         Button(onClick = {
                             activity.startActivity(Intent(activity, ProfileXmlActivity::class.java))
                         }) {
@@ -50,6 +59,20 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    Column(
+//                        modifier = Modifier
+//                            .padding(innerPadding)
+//                            .verticalScroll(rememberScrollState())
+//                    ) {
+//                        ProfileForm(modifier = Modifier.padding(24.dp))
+//                        Button(onClick = {
+//                            activity.startActivity(Intent(activity, ProfileXmlActivity::class.java))
+//                        }) {
+//                            Text("XML form")
+//                        }
+//                    }
+//                }
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Column(
 //                        modifier = Modifier

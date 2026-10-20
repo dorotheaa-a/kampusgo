@@ -31,6 +31,7 @@
             android:name=".ProfileXmlActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name="EventDetailActivity" />
     </application>
 
 </manifest>
