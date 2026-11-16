@@ -103,10 +103,11 @@ fun KampusApp(modifier: Modifier = Modifier) {
                 )
             }
             composable("notes") {
-                Text(
-                    text = "Notes arrive in week 9",
-                    modifier = Modifier.padding(24.dp),
-                )
+                NotesScreen()
+//                Text(
+//                    text = "Notes arrive in week 9",
+//                    modifier = Modifier.padding(24.dp),
+//                )
             }
             composable("profile") {
                 Column(
